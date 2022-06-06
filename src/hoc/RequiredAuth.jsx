@@ -1,18 +1,20 @@
-import React from "react";
-import {AuthContext} from "../context/AuthContext"
-import { Navigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const RequiredAuth = ({ children }) => {
 
-  // const {isAut} =useContext(AuthContext)
+  
+  const { locationname } = useLocation();
+  const {isAut} =useContext(AuthContext)
 
-  // if(isAut)
-  // {
-  //     return children
-  // }
-  // else{
-      // return <Navigate to="/login" />
-  // }
+  if(isAut)
+  {
+      return children
+  }
+  else{
+    return <Navigate to="/login" state={{from: locationname}} />
+  }
 
 
   

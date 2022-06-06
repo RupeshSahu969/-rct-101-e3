@@ -1,41 +1,27 @@
-import React, { createContext,useState,useNavigate } from "react";
-import { useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [isAut, setIsAut] = useState(false);
 
-const navigate =useNavigate();
+  const login = () => {
+    setIsAut(true);
+    localStorage.setItem("isAut", true)
+  }
 
+  const logOut = () => {
+    setIsAut(false);
+    localStorage.setItem("isAut", "")
+  }
 
-const [isAut,setAut] =useState(false);
+  useEffect(()=>{
+    const x = localStorage.getItem("isAut");
+    setIsAut(x);
+  },[])
 
-
-const login=()=>{
-
-  setAut(true)
-
-  localStorage.setItem("isAut",true)
-
-}
-
-const logout =() => {
-  setAut(false)
-  localStorage.setItem("isAut","")
-
-}
-
-useEffect(() => {
-
-  const a=localStorage.getItem("isAut");
-  setAut(a)
-},[])
-
-
-
-  return <AuthContext.Provider
-  
-  value={{isAut,login,logout}}
-  
-  >{children}</AuthContext.Provider>;
+  return( 
+  <AuthContext.Provider value={ {isAut, login, logOut } } >
+    {children}
+  </AuthContext.Provider>);
 };

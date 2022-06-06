@@ -1,17 +1,15 @@
-import React, { useState, useContext,usenavigate } from "react";
+import React,{useState,useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
 
 
-
-  const {login} =useContext(AuthContext)
-
   
 
+  const { login } = useContext(AuthContext);
 
   return (
-    <div>
+    <div style={{margin:"280px"}}>
 
       <input data-cy="login-email" 
       type="email" placeholder="Enter gmail" required

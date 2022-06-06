@@ -4,11 +4,11 @@ import Navbar from "./components/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
 
 
+import RequiredAuth from "./hoc/RequiredAuth";
+
 import Home from "./pages/Home";
 
 import Login from "./pages/Login";
-
-import RequiredAuth from "./hoc/RequiredAuth";
 
 function App() {
   return (

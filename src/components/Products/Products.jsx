@@ -1,11 +1,12 @@
 import React from "react";
 import axios from "axios";
-
+import {CartContext} from "../../context/CartContext"
 import { useEffect } from "react";
 import { useState } from "react";
 import Product from "./Product/Product"
 
-import { Link, Navigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { useContext } from "react";
 
 const Products = () => {
 
@@ -15,31 +16,38 @@ const [searchParams, setSearchParams] = useSearchParams();
 
 const [get,setGet] =useState(Number(searchParams.get("get")))
 
-useEffect(() => {
-  setSearchParams({
-    get
-  });
-  axios({
-    url: "http://localhost:8080/products",
-    method: "GET",
-    params: {
-      get
-    }
-  })
-    .then((res) => {
-      setData(res.data.data);
-    })
-    .catch((err) => {});
-}, [get]);
+const {count1,incre1,decre1} =useContext(CartContext)
 
 
-  return <div>{/* Code here */}
+
+
+
+
+const fastData=()=>{
+
+  axios.get("http://localhost:8080/products")
+  .then((s) =>
   
-  {data.map((item) => (
-        <div key={item.id}>
-         console.log(item)
-        </div>
-      ))}
+  setData(s.data)
+  
+  )
+}
+  
+    
+useEffect(() => {
+
+  fastData();
+
+},[])
+
+  return <div>
+    {/* Code here */}
+  
+  {
+      data.map((mova)=>(
+        <Product key={mova.id} mova={mova} inc={incre1} dec={decre1} />
+      ))
+    }
   
   
   </div>;
